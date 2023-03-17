@@ -2,6 +2,7 @@ package com.si6a.aplikasiagenda;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -50,5 +51,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long eksekusi = db.insert(TABLE_NAME, null, cv);
         return eksekusi;
+    }
+    public Cursor bacaDataAgenda(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "SELECT * FROM " + TABLE_NAME;
+
+        Cursor varCursor = null;
+        if(db != null){
+            varCursor = db.rawQuery(Query, null);
+        }
+        return varCursor;
     }
 }
