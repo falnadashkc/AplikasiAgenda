@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvagenda;
     private MyDatabaseHelper mydb;
     private AdapterAgenda adAgenda;
-    private ArrayList<String> arrTanggal, arrJam, arrKegiatan;
+    private ArrayList<String> arrTanggal, arrJam, arrKegiatan, arrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         arrTanggal = new ArrayList<>();
         arrJam = new ArrayList<>();
         arrKegiatan = new ArrayList<>();
+        arrid = new ArrayList<>();
     }
     private void tampilagenda(){
         Cursor varcursor = mydb.bacaDataAgenda();
@@ -51,12 +52,14 @@ public class MainActivity extends AppCompatActivity {
             arrTanggal.clear();
             arrJam.clear();
             arrKegiatan.clear();
+            arrid.clear();
             while (varcursor.moveToNext()){
+                arrid.add(varcursor.getString(0));
                 arrTanggal.add(varcursor.getString(1));
                 arrJam.add(varcursor.getString(2));
                 arrKegiatan.add(varcursor.getString(3));
             }
-            adAgenda = new AdapterAgenda(MainActivity.this, arrTanggal, arrJam, arrKegiatan);
+            adAgenda = new AdapterAgenda(MainActivity.this, arrTanggal, arrJam, arrKegiatan, arrid);
             rvagenda.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             rvagenda.setAdapter(adAgenda);
         }
